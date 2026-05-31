@@ -299,7 +299,7 @@ $("scorecard").innerHTML=INDICATORS.map(i=>`
 $("qual").innerHTML=DIMS.map(d=>`<div class="field"><label class="q">${d.label}</label><div class="prompt">${d.p}</div><textarea id="d_${d.key}" placeholder="Write your response here…" rows="5" style="min-height:120px;background:#ffffff;border:1.6px solid #c4b89a"></textarea></div>`).join("");
 DIMS.forEach(d=>$("d_"+d.key).oninput=save);
 
-INDICATORS.forEach(i=>{const r=$("sc_"+i.key);const sync=()=>{const val=r.value,pct=val*10;$("scv_"+i.key).textContent=val;let st=document.getElementById('_st_'+i.key);if(!st){st=document.createElement('style');st.id='_st_'+i.key;document.head.appendChild(st);}st.textContent=`#sc_${i.key}::-webkit-slider-runnable-track{background:linear-gradient(90deg,#3a5a40 ${pct}%,#e4dccb ${pct}%)}`;save();};r.oninput=sync;r.onchange=sync;sync();$("cnt_"+i.key).oninput=save;});
+INDICATORS.forEach(i=>{const r=$("sc_"+i.key);const sync=()=>{const val=r.value,pct=val*10;$("scv_"+i.key).textContent=val;let st=document.getElementById('_st_'+i.key);if(!st){st=document.createElement('style');st.id='_st_'+i.key;document.head.appendChild(st);}st.textContent=`#sc_${i.key}::-webkit-slider-runnable-track{background:linear-gradient(90deg,#3a5a40 ${pct}%,#e4dccb ${pct}%)}`;try{save();}catch(_){}};r.oninput=sync;r.onchange=sync;sync();$("cnt_"+i.key).oninput=save;});
 
 $("stakeholders").innerHTML=STAKEHOLDERS.map((s,i)=>`<span class="chip" data-i="${i}" aria-pressed="false">${s}</span>`).join("");
 document.querySelectorAll("#stakeholders .chip").forEach(c=>c.onclick=()=>{const on=c.getAttribute("aria-pressed")==="true";c.setAttribute("aria-pressed",!on);save()});
