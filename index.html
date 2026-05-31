@@ -318,7 +318,7 @@ function collect(){
   adv:$("s_adv").value,claim:$("s_claim").value,pend:$("s_pend").value,sugg:$("s_sugg").value};
  INDICATORS.forEach(i=>{o.scores[i.key]=$("sc_"+i.key).value;o.counts[i.key]=$("cnt_"+i.key).value});
  DIMS.forEach(d=>{const el=$("d_"+d.key);o.dims[d.key]=el?el.value:""});
- STAKEHOLDERS.forEach((s,i)=>{if(document.querySelector('#stakeholders .chip[data-i="'+i+'"]').getAttribute("aria-pressed")==="true")o.stake.push(s)});
+ STAKEHOLDERS.forEach((s,i)=>{const chip=document.querySelector('#stakeholders .chip[data-i="'+i+'"]');if(chip&&chip.getAttribute("aria-pressed")==="true")o.stake.push(s)});
  return o;
 }
 function progress(){
