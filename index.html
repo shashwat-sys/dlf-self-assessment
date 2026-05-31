@@ -106,8 +106,8 @@ dialog::backdrop{background:rgba(20,28,28,.55)}
 <div class="wrap">
   <header class="hero">
     <div class="kicker">District Legal Fellowship · Annual Review 2026</div>
-    <h1>Fellow Self‑Assessment</h1>
-    <div class="sub">Your honest reflection on the year — and the basis for the MoU‑extension conversation. There are no wrong answers. Save as you go; when you finish, generate your code and send it back to the review team.</div>
+    <h1>Fellow Self&#8209;Assessment</h1>
+    <div class="sub">Your honest reflection on the year — and the basis for the MoU&#8209;extension conversation. There are no wrong answers. Save as you go; when you finish, generate your code and send it back to the review team.</div>
     <div class="org">Janman People's Foundation · Jan Nyaya Abhiyan</div>
     <div class="flow"><strong>How it works:</strong> Fill this form &rarr; click <strong>Finish &rarr; get my code</strong> at the bottom &rarr; copy the code &rarr; send it to the review team on WhatsApp. The team pastes your code into the assessor dashboard to load all your responses. There is no automatic sync — the code is the link.</div>
     <div class="bar"><i id="prog"></i></div>
@@ -121,8 +121,8 @@ dialog::backdrop{background:rgba(20,28,28,.55)}
       <div class="idgrid">
         <div class="field"><label class="q">Your name <span class="req">*</span></label>
           <select id="who"></select></div>
-        <div class="field"><label class="q">Role</label><input type="text" id="role" placeholder="auto‑filled"></div>
-        <div class="field"><label class="q">District</label><input type="text" id="dist" placeholder="auto‑filled"></div>
+        <div class="field"><label class="q">Role</label><input type="text" id="role" placeholder="auto&#8209;filled"></div>
+        <div class="field"><label class="q">District</label><input type="text" id="dist" placeholder="auto&#8209;filled"></div>
         <div class="field"><label class="q">Review period</label><input type="text" id="period" value="Feb 2025 – Jun 2026"></div>
       </div>
     </div>
@@ -154,7 +154,7 @@ dialog::backdrop{background:rgba(20,28,28,.55)}
         <textarea id="s_strategy"></textarea></div>
 
       <div class="field"><label class="q">Media screenings — what did they lead to?</label>
-        <div class="prompt">For each community media/film screening you held: did it lead to a fact‑finding, a legal aid camp, or a case being filed? List them and the outcome.</div>
+        <div class="prompt">For each community media/film screening you held: did it lead to a fact&#8209;finding, a legal aid camp, or a case being filed? List them and the outcome.</div>
         <textarea id="s_media"></textarea></div>
 
       <div class="field"><label class="q">Networking built with organisations</label>
@@ -175,7 +175,7 @@ dialog::backdrop{background:rgba(20,28,28,.55)}
         <input type="number" id="s_times" class="cnt" min="0" placeholder="0"></div>
 
       <div class="field"><label class="q">Community collaboration</label>
-        <div class="prompt">Regular community visits? Which community leaders are you in touch with? How did that feed legal‑aid camp turnout and case referrals?</div>
+        <div class="prompt">Regular community visits? Which community leaders are you in touch with? How did that feed legal&#8209;aid camp turnout and case referrals?</div>
         <textarea id="s_comm"></textarea></div>
 
       <div class="field"><label class="q">External stakeholders you engaged this year</label>
@@ -207,8 +207,8 @@ dialog::backdrop{background:rgba(20,28,28,.55)}
       <span class="hint">Payment is cleared after bills are checked in the interview</span></div>
     <div class="body">
       <div class="expgrid">
-        <div class="field"><label class="q">Advance taken (₹)</label><input type="number" id="s_adv" min="0"></div>
-        <div class="field"><label class="q">Total claimed (₹)</label><input type="number" id="s_claim" min="0"></div>
+        <div class="field"><label class="q">Advance taken (&#8377;)</label><input type="number" id="s_adv" min="0"></div>
+        <div class="field"><label class="q">Total claimed (&#8377;)</label><input type="number" id="s_claim" min="0"></div>
         <div class="field"><label class="q">Bills still pending?</label><input type="text" id="s_pend" placeholder="e.g. 2 travel bills"></div>
       </div>
     </div>
@@ -225,17 +225,26 @@ dialog::backdrop{background:rgba(20,28,28,.55)}
 </div>
 
 <div class="actionbar">
-  <span class="sv" id="autosv">●&nbsp; not saved</span>
+  <span class="sv" id="autosv">&#9679;&nbsp; not saved</span>
   <button class="btn ghost" id="resetBtn">Clear</button>
   <button class="btn ghost" id="csvBtn">Download CSV</button>
-  <button class="btn primary" id="finishBtn">Finish → get my code</button>
+  <button class="btn primary" id="finishBtn">Finish &#8594; get my code</button>
 </div>
 
 <dialog id="dlg">
   <div class="dlghead">Your response is ready</div>
   <div class="dlgbody">
-    <div class="note">1) Tap <b>Copy code</b> and send it to the review team on WhatsApp. They'll paste it into the assessor dashboard. <br>2) Or tap <b>Copy row</b> to paste a row straight into the master Google Sheet.</div>
-    <textarea class="codebox" id="code" readonly></textarea>
+    <!-- Short code display — shown when backend saves successfully -->
+    <div id="scWrap" style="display:none;text-align:center;margin-bottom:16px">
+      <div style="font:600 13px/1.4 'Karla';color:var(--muted);margin-bottom:10px">Send this code to the review team on WhatsApp &#8595;</div>
+      <div id="scNum" style="font-family:'Fraunces';font-size:80px;font-weight:700;letter-spacing:.18em;color:var(--green);line-height:1;padding:12px 0 16px"></div>
+      <button class="btn primary" id="copyShort" style="font-size:16px;padding:12px 30px">Copy code &amp; send on WhatsApp</button>
+    </div>
+    <!-- Long code fallback — shown when no backend or backend fails -->
+    <div id="lcWrap">
+      <div class="note">1) Tap <b>Copy code</b> and send it to the review team on WhatsApp. They'll paste it into the assessor dashboard. <br>2) Or tap <b>Copy row</b> to paste a row straight into the master Google Sheet.</div>
+      <textarea class="codebox" id="code" readonly></textarea>
+    </div>
     <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
       <button class="btn primary" id="copyCode">Copy code</button>
       <button class="btn" id="copyRow" style="background:var(--green);color:#fff">Copy row (for Sheet)</button>
@@ -261,7 +270,7 @@ const INDICATORS=[
  {key:"lac",label:"Legal Aid Camps"},
  {key:"train",label:"Paralegal / Legal Trainings"},
  {key:"ff",label:"Fact Finding"},
- {key:"media",label:"Media Screenings → fact‑finding / LAC / case"},
+ {key:"media",label:"Media Screenings &#8594; fact&#8209;finding / LAC / case"},
  {key:"pil",label:"PIL Leads Identified"},
  {key:"cases",label:"Cases Filed / Handled"}
 ];
@@ -270,11 +279,13 @@ const DIMS=[
  {key:"chal",label:"Challenges & how you overcame them",p:"Biggest obstacles to your targets — and what you did about them."},
  {key:"learn",label:"Learnings",p:"Top 2–3 skills or insights you gained, and how they changed how you work."},
  {key:"impact",label:"Impact of your work",p:"One case or activity that mattered most — to a client or the community. Why did it land?"},
- {key:"team",label:"Teamwork & collaboration with Janman",p:"How did you work with the Patna team, co‑fellows, Sr. Anupriya and leadership?"}
+ {key:"team",label:"Teamwork & collaboration with Janman",p:"How did you work with the Patna team, co&#8209;fellows, Sr. Anupriya and leadership?"}
 ];
 const STAKEHOLDERS=["Police","One Stop Centre (OSC)","Women & Child Dev. (WCD)","CNLU / Law school","Juvenile Justice Board (JJB)","Child Welfare Committee (CWC)","Social Welfare Dept.","DALSA / DLSA","Public Prosecutors","Paralegal Volunteers (PLVs)","Local elected reps","Other Govt. departments","Other Civil Society Orgs."];
 
 const COLS=["Timestamp","Fellow","Role","District","Stage","Self: LAC /10","Self: Trainings /10","Self: Fact-finding /10","Self: Media screenings /10","Self: PIL /10","Self: Cases /10","Self: Experience","Self: Challenges & overcome","Self: Learnings","Self: Impact","Self: Teamwork","Self: Reporting bottleneck","Self: Case strategy","Self: Media screenings — outcomes","Self: Networking — organisations","Self: Networking — officials/govt","Self: WhatsApp use","Self: Times strategised","Self: Stakeholders engaged","Self: Community work","Self: Assets currently held","Self: Confidentiality affirmed","Self: Concern to raise","Self: Suggestions","Self: Advance","Self: Claimed","Self: Pending docs","Assr: LM total /60","Assr: Director quant /60","Assr: Director qual /60","Assr: Composite /120","Assr: Experience note","Assr: Challenges note","Assr: Learnings note","Assr: Impact note","Assr: Teamwork note","Assr: Conduct & safeguarding note","Assr: Reporting note","Assr: Case-strategy note","Assr: Media screenings note","Assr: Networking note","Assr: WhatsApp (Y/N)","Assr: Times strategised","Assr: Community note","Assr: Stakeholders engaged","Exp: Verified (Y/N)","Exp: Approved","Exp: Cleared to pay","Exp: Verified by","Assr: B — Exp evidence","Assr: B — Chal evidence","Assr: B — Learn evidence","Assr: B — Impact evidence","Assr: B — Team evidence","Assr: B — Conduct evidence","Assr: 360 — Co-fellow voice","Assr: 360 — Community voice","Assr: 360 — Positive incident","Assr: 360 — Concern","Assr: Trajectory","Assr: Movement potential","Assr: Core strength","Assr: Dev priority","Assr: Self-calibration","Assr: Self-calibration note","Renewal recommendation","HR next step","Director forward notes","MIS flag"];
+
+const BACKEND=''; // <- paste your Google Apps Script URL here after setup
 
 let S={wa:""};
 let t; // debounce timer — declared here so save() can access it during forEach init (let TDZ fix)
@@ -285,7 +296,9 @@ const stor={
   del:async k=>{if(window.storage)await window.storage.delete(k).catch(()=>{});else try{localStorage.removeItem(k)}catch(e){}}
 };
 const $=id=>document.getElementById(id);
-const clean=v=>(v==null?"":String(v)).replace(/[\t\n\r]+/g," ").trim();
+const clean=v=>(v==null?"":String(v)).replace(/[	
+
+]+/g," ").trim();
 
 const who=$("who"); who.innerHTML='<option value="">— select —</option>'+Object.keys(FELLOWS).map(n=>`<option>${n}</option>`).join("");
 who.onchange=()=>{const f=FELLOWS[who.value]||{};$("role").value=f.role||"";$("dist").value=f.dist||"";loadDraft();save()};
@@ -296,7 +309,7 @@ $("scorecard").innerHTML=INDICATORS.map(i=>`
      <span style="margin-left:auto" class="cntlab">your count <input type="number" min="0" class="cnt" id="cnt_${i.key}" style="width:80px;margin-left:6px"></span></div>
    <div class="scorewrap"><input type="range" min="0" max="10" value="0" id="sc_${i.key}"><span class="scoreval" id="scv_${i.key}">0</span></div>
  </div>`).join("");
-// Render Section B FIRST — collect() reads these elements, so they must exist before INDICATORS.forEach calls sync()→save()→collect()
+// Render Section B FIRST — collect() reads these elements, so they must exist before INDICATORS.forEach calls sync()->save()->collect()
 $("qual").innerHTML=DIMS.map(d=>`<div class="field"><label class="q">${d.label}</label><div class="prompt">${d.p}</div><textarea id="d_${d.key}" placeholder="Write your response here…" rows="5" style="min-height:120px;background:#ffffff;border:1.6px solid #c4b89a"></textarea></div>`).join("");
 DIMS.forEach(d=>$("d_"+d.key).oninput=save);
 
@@ -325,8 +338,8 @@ function collect(){
 function progress(){
  const o=collect();let filled=0,total=0;
  total++; if(o.who)filled++;
- DIMS.forEach(d=>{total++;if(clean(o.dims[d.key]).length>3)filled++});
- [o.report,o.strategy,o.comm,o.neto,o.netg].forEach(v=>{total++;if(clean(v).length>3)filled++});
+ DIMS.forEach(d=>{total++;if(clean(o.dims[d.key]).length>3)filled++;});
+ [o.report,o.strategy,o.comm,o.neto,o.netg].forEach(v=>{total++;if(clean(v).length>3)filled++;});
  total++; if(o.wa)filled++;
  total++; if(o.stake.length)filled++;
  const sc=INDICATORS.some(i=>+o.scores[i.key]>0); total++; if(sc)filled++;
@@ -373,21 +386,40 @@ function rowArray(o){
 function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1700)}
 async function copy(txt){try{await navigator.clipboard.writeText(txt);return true}catch(e){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(_){}ta.remove();return true}}
 
-$("finishBtn").onclick=()=>{
+$("finishBtn").onclick=async()=>{
  if(!who.value){toast("Please select your name first");return}
  const o=collect();
- const code="DLF1::"+btoa(encodeURIComponent(JSON.stringify(o)));
- $("code").value=code; $("dlg").showModal(); $("dlg").dataset.row=JSON.stringify(rowArray(o));
+ const longCode="DLF1::"+btoa(encodeURIComponent(JSON.stringify(o)));
+ $("code").value=longCode; $("dlg").dataset.row=JSON.stringify(rowArray(o));
+ if(BACKEND){
+  const sc=String(Math.floor(10000+Math.random()*90000));
+  $("scNum").textContent=sc; $("dlg").dataset.sc=sc;
+  $("scWrap").style.display=""; $("lcWrap").style.display="none"; $("copyCode").style.display="none";
+  try{
+   const r=await fetch(BACKEND,{method:"POST",body:JSON.stringify({code:sc,data:o})});
+   const j=await r.json(); if(!j.success)throw new Error(j.error||"save failed");
+   $("dlg").showModal(); return;
+  }catch(err){
+   $("scWrap").style.display="none"; $("lcWrap").style.display=""; $("copyCode").style.display="";
+   toast("Server unavailable — use the long code below");
+  }
+ }else{
+  $("scWrap").style.display="none"; $("lcWrap").style.display=""; $("copyCode").style.display="";
+ }
+ $("dlg").showModal();
 };
+$("copyShort").onclick=async()=>{await copy($("dlg").dataset.sc||"");toast("Code copied — send on WhatsApp!")};
 $("copyCode").onclick=async()=>{await copy($("code").value);toast("Code copied — send on WhatsApp")};
-$("copyRow").onclick=async()=>{const row=JSON.parse($("dlg").dataset.row);await copy(row.join("\t"));toast("Row copied — paste into the Sheet")};
+$("copyRow").onclick=async()=>{const row=JSON.parse($("dlg").dataset.row);await copy(row.join("	"));toast("Row copied — paste into the Sheet")};
 $("closeDlg").onclick=()=>$("dlg").close();
 $("csvBtn").onclick=()=>{
  if(!who.value){toast("Select your name first");return}
  const row=rowArray(collect());
- function q(s){s=String(s);return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
- const csv=[COLS.map(q).join(","),row.map(q).join(",")].join("\n");
- const blob=new Blob([csv],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=("Self_"+(who.value||"fellow")).replace(/\W+/g,"_")+".csv";a.click();
+ function q(s){s=String(s);return /[",
+]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+ const csv=[COLS.map(q).join(","),row.map(q).join(",")].join("
+");
+ const blob=new Blob([csv],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=("Self_"+(who.value||"fellow")).replace(/W+/g,"_")+".csv";a.click();
 };
 $("resetBtn").onclick=async()=>{ if(!confirm("Clear this draft?"))return; try{await stor.del(keyFor())}catch(e){} location.reload(); };
 
