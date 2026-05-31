@@ -277,6 +277,7 @@ const STAKEHOLDERS=["Police","One Stop Centre (OSC)","Women & Child Dev. (WCD)",
 const COLS=["Timestamp","Fellow","Role","District","Stage","Self: LAC /10","Self: Trainings /10","Self: Fact-finding /10","Self: Media screenings /10","Self: PIL /10","Self: Cases /10","Self: Experience","Self: Challenges & overcome","Self: Learnings","Self: Impact","Self: Teamwork","Self: Reporting bottleneck","Self: Case strategy","Self: Media screenings — outcomes","Self: Networking — organisations","Self: Networking — officials/govt","Self: WhatsApp use","Self: Times strategised","Self: Stakeholders engaged","Self: Community work","Self: Assets currently held","Self: Confidentiality affirmed","Self: Concern to raise","Self: Suggestions","Self: Advance","Self: Claimed","Self: Pending docs","Assr: LM total /60","Assr: Director quant /60","Assr: Director qual /60","Assr: Composite /120","Assr: Experience note","Assr: Challenges note","Assr: Learnings note","Assr: Impact note","Assr: Teamwork note","Assr: Conduct & safeguarding note","Assr: Reporting note","Assr: Case-strategy note","Assr: Media screenings note","Assr: Networking note","Assr: WhatsApp (Y/N)","Assr: Times strategised","Assr: Community note","Assr: Stakeholders engaged","Exp: Verified (Y/N)","Exp: Approved","Exp: Cleared to pay","Exp: Verified by","Assr: B — Exp evidence","Assr: B — Chal evidence","Assr: B — Learn evidence","Assr: B — Impact evidence","Assr: B — Team evidence","Assr: B — Conduct evidence","Assr: 360 — Co-fellow voice","Assr: 360 — Community voice","Assr: 360 — Positive incident","Assr: 360 — Concern","Assr: Trajectory","Assr: Movement potential","Assr: Core strength","Assr: Dev priority","Assr: Self-calibration","Assr: Self-calibration note","Renewal recommendation","HR next step","Director forward notes","MIS flag"];
 
 let S={wa:""};
+let t; // debounce timer — declared here so save() can access it during forEach init (let TDZ fix)
 // storage helper: Cowork SDK with localStorage fallback
 const stor={
   get:async k=>{if(window.storage){const r=await window.storage.get(k);return r?.value??null;}try{return localStorage.getItem(k)}catch(e){return null}},
@@ -334,7 +335,6 @@ function progress(){
 }
 
 function keyFor(){return "selfdraft2:"+(who.value||"unknown")}
-let t;
 function save(){
  const o=collect();
  const p=progress(); $("prog").style.width=p+"%"; $("proglab").textContent=p+"% complete";
