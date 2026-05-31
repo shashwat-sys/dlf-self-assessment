@@ -58,7 +58,7 @@ textarea:focus,input:focus,select:focus{border-color:var(--green);box-shadow:0 0
 .cntlab{font:600 12px/1 "Karla";color:var(--muted)}
 .scorewrap{display:flex;align-items:center;gap:14px}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:26px;background:transparent;cursor:pointer}
-input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--green) var(--p,0%),#e4dccb var(--p,0%));border:1px solid var(--line)}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:99px;background:#e4dccb;border:1px solid var(--line)}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;margin-top:-8px;width:24px;height:24px;border-radius:50%;background:var(--paper2);border:2.4px solid var(--green);box-shadow:0 2px 6px -1px rgba(0,0,0,.3)}
 input[type=range]::-moz-range-track{height:8px;border-radius:99px;background:#e4dccb;border:1px solid var(--line)}
 input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--paper2);border:2.4px solid var(--green)}
@@ -292,9 +292,9 @@ $("scorecard").innerHTML=INDICATORS.map(i=>`
      <span style="margin-left:auto" class="cntlab">your count <input type="number" min="0" class="cnt" id="cnt_${i.key}" style="width:80px;margin-left:6px"></span></div>
    <div class="scorewrap"><input type="range" min="0" max="10" value="0" id="sc_${i.key}"><span class="scoreval" id="scv_${i.key}">0</span></div>
  </div>`).join("");
-INDICATORS.forEach(i=>{const r=$("sc_"+i.key);const sync=()=>{$("scv_"+i.key).textContent=r.value;r.style.setProperty('--p',(r.value*10)+'%');save()};r.oninput=sync;sync();$("cnt_"+i.key).oninput=save;});
+INDICATORS.forEach(i=>{const r=$("sc_"+i.key);const sync=()=>{const val=r.value,pct=val*10;$("scv_"+i.key).textContent=val;let st=document.getElementById('_st_'+i.key);if(!st){st=document.createElement('style');st.id='_st_'+i.key;document.head.appendChild(st);}st.textContent=`#sc_${i.key}::-webkit-slider-runnable-track{background:linear-gradient(90deg,#3a5a40 ${pct}%,#e4dccb ${pct}%)}`;save();};r.oninput=sync;r.onchange=sync;sync();$("cnt_"+i.key).oninput=save;});
 
-$("qual").innerHTML=DIMS.map(d=>`<div class="field"><label class="q">${d.label}</label><div class="prompt">${d.p}</div><textarea id="d_${d.key}"></textarea></div>`).join("");
+$("qual").innerHTML=DIMS.map(d=>`<div class="field"><label class="q">${d.label}</label><div class="prompt">${d.p}</div><textarea id="d_${d.key}" placeholder="Write your response here…" rows="5" style="min-height:120px;background:#ffffff;border:1.6px solid #c4b89a"></textarea></div>`).join("");
 DIMS.forEach(d=>$("d_"+d.key).oninput=save);
 
 $("stakeholders").innerHTML=STAKEHOLDERS.map((s,i)=>`<span class="chip" data-i="${i}" aria-pressed="false">${s}</span>`).join("");
