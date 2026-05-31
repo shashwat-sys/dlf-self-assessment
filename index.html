@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DLF Self-Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1c2b2b; --ink2:#33474a; --paper:#f6f1e7; --paper2:#fbf8f1;
+  --line:#d9cfbd; --green:#3a5a40; --green2:#557a4e; --saff:#c2702a;
+  --saff-soft:#f0d9c2; --muted:#7a7263; --shadow:0 1px 0 #fff inset, 0 10px 30px -18px rgba(28,43,43,.5);
+}
+*{box-sizing:border-box}
+body{margin:0;background:
+   radial-gradient(1200px 500px at 110% -10%, #efe6d4 0, transparent 60%),
+   radial-gradient(900px 500px at -10% 110%, #e8efe2 0, transparent 55%),
+   var(--paper);
+   color:var(--ink);font-family:"Karla",system-ui,sans-serif;font-size:16px;line-height:1.5;}
+.wrap{max-width:880px;margin:0 auto;padding:22px 18px 120px;}
+header.hero{position:relative;border:1.5px solid var(--ink);background:var(--paper2);
+  border-radius:18px;padding:26px 26px 22px;box-shadow:var(--shadow);overflow:hidden}
+header.hero:before{content:"";position:absolute;inset:0;background:
+   repeating-linear-gradient(135deg,transparent 0 18px,rgba(58,90,64,.04) 18px 19px);pointer-events:none}
+.kicker{font:600 12.5px/1 "Karla";letter-spacing:.22em;text-transform:uppercase;color:var(--green)}
+h1{font-family:"Fraunces";font-weight:600;font-size:clamp(30px,5.4vw,46px);line-height:1.02;margin:.28em 0 .12em;letter-spacing:-.01em}
+.sub{color:var(--ink2);max-width:60ch;font-size:15.5px}
+.org{font:700 12px/1.3 "Karla";letter-spacing:.04em;color:var(--saff);margin-top:14px;text-transform:uppercase}
+.bar{height:7px;border-radius:99px;background:#e4dccb;margin:18px 0 0;overflow:hidden;border:1px solid var(--line)}
+.bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--green2));transition:width .35s}
+.barlabel{font:600 12px/1 "Karla";color:var(--muted);margin-top:7px;display:flex;justify-content:space-between}
+
+section.card{margin-top:20px;border:1.5px solid var(--ink);border-radius:16px;background:var(--paper2);box-shadow:var(--shadow);overflow:hidden}
+.cardhead{display:flex;align-items:baseline;gap:12px;padding:15px 20px;background:var(--ink);color:#f4eee2}
+.cardhead .n{font-family:"Fraunces";font-weight:700;font-size:18px;color:var(--saff-soft)}
+.cardhead h2{font-family:"Fraunces";font-weight:600;font-size:19px;margin:0;letter-spacing:.01em}
+.cardhead .hint{margin-left:auto;font:500 12px/1.3 "Karla";color:#cdbfa6;max-width:42%;text-align:right}
+.body{padding:18px 20px}
+
+.field{margin:0 0 18px}
+.field:last-child{margin-bottom:4px}
+label.q{display:block;font-weight:700;font-size:15.5px;margin-bottom:3px}
+.prompt{font-size:13px;color:var(--muted);margin-bottom:8px}
+textarea,input[type=text],input[type=number],select{width:100%;font-family:inherit;font-size:15px;color:var(--ink);
+  background:#fffdf8;border:1.4px solid var(--line);border-radius:10px;padding:11px 12px;outline:none;transition:border .15s,box-shadow .15s}
+textarea{min-height:74px;resize:vertical;line-height:1.45}
+textarea:focus,input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(58,90,64,.13)}
+
+.idgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.idgrid{grid-template-columns:1fr}.cardhead .hint{display:none}}
+
+.slabrow{display:grid;grid-template-columns:1fr;gap:6px;padding:13px 0;border-bottom:1px dashed var(--line)}
+.slabrow:last-child{border-bottom:0}
+.slabtop{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.slabtop .name{font-weight:700;font-size:15px}
+.cntlab{font:600 12px/1 "Karla";color:var(--muted)}
+.scorewrap{display:flex;align-items:center;gap:14px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:26px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--green) var(--p,0%),#e4dccb var(--p,0%));border:1px solid var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;margin-top:-8px;width:24px;height:24px;border-radius:50%;background:var(--paper2);border:2.4px solid var(--green);box-shadow:0 2px 6px -1px rgba(0,0,0,.3)}
+input[type=range]::-moz-range-track{height:8px;border-radius:99px;background:#e4dccb;border:1px solid var(--line)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--paper2);border:2.4px solid var(--green)}
+.scoreval{font-family:"Fraunces";font-weight:700;font-size:22px;min-width:54px;text-align:center;color:var(--ink);background:#fffdf8;border:1.4px solid var(--line);border-radius:10px;padding:2px 0}
+.cnt{width:92px !important;text-align:center}
+
+.seg{display:inline-flex;border:1.4px solid var(--line);border-radius:10px;overflow:hidden;background:#fffdf8}
+.seg button{font-family:inherit;font-weight:700;font-size:14px;border:0;background:transparent;color:var(--ink2);padding:9px 18px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--green);color:#fff}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-weight:600;font-size:13.5px;border:1.4px solid var(--line);background:#fffdf8;color:var(--ink2);border-radius:99px;padding:8px 13px;cursor:pointer;user-select:none;transition:all .12s}
+.chip[aria-pressed=true]{background:var(--saff);border-color:var(--saff);color:#fff;box-shadow:0 4px 12px -6px var(--saff)}
+
+.expgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:600px){.expgrid{grid-template-columns:1fr}}
+.affirm{display:flex;gap:11px;align-items:flex-start;background:#f1efe6;border:1.4px solid var(--line);border-radius:10px;padding:12px 13px}
+.affirm input{margin-top:3px;width:18px;height:18px;accent-color:var(--green)}
+.affirm label{font-weight:600;font-size:14px}
+.note-soft{font-size:12.5px;color:var(--muted);margin-top:5px}
+
+.actionbar{position:fixed;left:0;right:0;bottom:0;background:rgba(28,43,43,.97);backdrop-filter:blur(6px);
+  border-top:1.5px solid #0e1717;padding:12px 16px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;z-index:30}
+.actionbar .sv{color:#9fb196;font:600 12px/1 "Karla";margin-right:auto}
+.btn{font-family:inherit;font-weight:700;font-size:14.5px;border-radius:11px;padding:11px 18px;cursor:pointer;border:1.6px solid transparent}
+.btn.primary{background:var(--saff);color:#fff}
+.btn.ghost{background:transparent;color:#f4eee2;border-color:#5a6e6e}
+.btn:active{transform:translateY(1px)}
+
+dialog{border:1.5px solid var(--ink);border-radius:16px;padding:0;max-width:560px;width:92%;background:var(--paper2);box-shadow:0 30px 80px -30px #000}
+dialog::backdrop{background:rgba(20,28,28,.55)}
+.dlghead{background:var(--green);color:#fff;padding:16px 20px;font-family:"Fraunces";font-weight:600;font-size:20px}
+.dlgbody{padding:18px 20px}
+.codebox{width:100%;min-height:120px;font-family:ui-monospace,Menlo,monospace;font-size:12px;background:#fff;border:1.4px solid var(--line);border-radius:10px;padding:11px;word-break:break-all}
+.note{font-size:13px;color:var(--muted);margin:10px 0}
+.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;
+  padding:11px 18px;border-radius:99px;font-weight:600;font-size:14px;opacity:0;transition:all .3s;pointer-events:none;z-index:50}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.req{color:var(--saff);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">District Legal Fellowship · Annual Review 2026</div>
+    <h1>Fellow Self‑Assessment</h1>
+    <div class="sub">Your honest reflection on the year — and the basis for the MoU‑extension conversation. There are no wrong answers. Save as you go; when you finish, generate your code and send it back to the review team.</div>
+    <div class="org">Janman People's Foundation · Jan Nyaya Abhiyan</div>
+    <div class="bar"><i id="prog"></i></div>
+    <div class="barlabel"><span id="proglab">0% complete</span><span id="savestate">Not saved yet</span></div>
+  </header>
+
+  <!-- IDENTITY -->
+  <section class="card">
+    <div class="cardhead"><span class="n">·</span><h2>Who you are</h2></div>
+    <div class="body">
+      <div class="idgrid">
+        <div class="field"><label class="q">Your name <span class="req">*</span></label>
+          <select id="who"></select></div>
+        <div class="field"><label class="q">Role</label><input type="text" id="role" placeholder="auto‑filled"></div>
+        <div class="field"><label class="q">District</label><input type="text" id="dist" placeholder="auto‑filled"></div>
+        <div class="field"><label class="q">Review period</label><input type="text" id="period" value="Feb 2025 – Jun 2026"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A: scorecard -->
+  <section class="card">
+    <div class="cardhead"><span class="n">A</span><h2>Score your own work</h2>
+      <span class="hint">0 = didn't happen · 5 = adequate · 8 = strong · 10 = exceptional</span></div>
+    <div class="body" id="scorecard"></div>
+  </section>
+
+  <!-- B: qualitative -->
+  <section class="card">
+    <div class="cardhead"><span class="n">B</span><h2>In your own words</h2></div>
+    <div class="body" id="qual"></div>
+  </section>
+
+  <!-- C: probes -->
+  <section class="card">
+    <div class="cardhead"><span class="n">C</span><h2>Working the fellowship</h2></div>
+    <div class="body">
+      <div class="field"><label class="q">Reporting — what makes it hard?</label>
+        <div class="prompt">Which form or step is the real bottleneck — time, internet, language, clarity? What would actually make reporting easier for you?</div>
+        <textarea id="s_report"></textarea></div>
+
+      <div class="field"><label class="q">Case strategy — walk us through 1–2 live cases</label>
+        <div class="prompt">For a case you're carrying: what's your theory, your next step, the main risk? Show us how you're thinking about it.</div>
+        <textarea id="s_strategy"></textarea></div>
+
+      <div class="field"><label class="q">Media screenings — what did they lead to?</label>
+        <div class="prompt">For each community media/film screening you held: did it lead to a fact‑finding, a legal aid camp, or a case being filed? List them and the outcome.</div>
+        <textarea id="s_media"></textarea></div>
+
+      <div class="field"><label class="q">Networking built with organisations</label>
+        <div class="prompt">Which CSOs, NGOs, networks or collectives did you build working relationships with this year — and what did those relationships make possible?</div>
+        <textarea id="s_neto"></textarea></div>
+
+      <div class="field"><label class="q">Networking built with officials &amp; government agencies</label>
+        <div class="prompt">Which officials or departments (police, DALSA, WCD, OSC, JJB/CWC, Social Welfare, PHC/Sadar Hospital, BDO/CO, etc.) did you build a working channel with — and what did it enable?</div>
+        <textarea id="s_netg"></textarea></div>
+
+      <div class="field"><label class="q">Do you use the WhatsApp group to discuss cases?</label>
+        <div class="prompt">Posting case questions / updates for quick strategy?</div>
+        <div class="seg" id="seg_wa"><button data-v="Yes">Yes</button><button data-v="Sometimes">Sometimes</button><button data-v="No">No</button></div>
+        <textarea id="s_wa_note" placeholder="If not, what stops you?" style="margin-top:10px"></textarea></div>
+
+      <div class="field"><label class="q">How many times did you strategise with leadership this period?</label>
+        <div class="prompt">Real strategy discussions with Shashwat / Sr. Anupriya.</div>
+        <input type="number" id="s_times" class="cnt" min="0" placeholder="0"></div>
+
+      <div class="field"><label class="q">Community collaboration</label>
+        <div class="prompt">Regular community visits? Which community leaders are you in touch with? How did that feed legal‑aid camp turnout and case referrals?</div>
+        <textarea id="s_comm"></textarea></div>
+
+      <div class="field"><label class="q">External stakeholders you engaged this year</label>
+        <div class="prompt">Tap everyone you actually worked with.</div>
+        <div class="chips" id="stakeholders"></div></div>
+    </div>
+  </section>
+
+  <!-- HR: engagement -->
+  <section class="card">
+    <div class="cardhead"><span class="n">·</span><h2>Engagement, assets &amp; wellbeing</h2>
+      <span class="hint">Helps keep your MoU extension / exit clean</span></div>
+    <div class="body">
+      <div class="field"><label class="q">Janman assets currently with you</label>
+        <div class="prompt">Laptop, SIM, case files, camera, books, keys — list what you're holding (so nothing is disputed at renewal or exit).</div>
+        <textarea id="s_assets" style="min-height:56px"></textarea></div>
+      <div class="field"><div class="affirm"><input type="checkbox" id="s_conf">
+        <div><label for="s_conf">I have kept client and case information confidential, and will continue to after my engagement.</label></div></div></div>
+      <div class="field"><label class="q">Anything to raise — confidentially</label>
+        <div class="prompt">Workload, safety, payments, or any concern including under POSH / the grievance mechanism. Optional. This goes only to the review team.</div>
+        <textarea id="s_concern" style="min-height:56px"></textarea>
+        <div class="note-soft">Janman has an Internal Complaints Committee (ICC). You can also raise a POSH or grievance matter directly and separately at any time.</div></div>
+    </div>
+  </section>
+
+  <!-- D: expenditure -->
+  <section class="card">
+    <div class="cardhead"><span class="n">D</span><h2>Expenditure (for verification)</h2>
+      <span class="hint">Payment is cleared after bills are checked in the interview</span></div>
+    <div class="body">
+      <div class="expgrid">
+        <div class="field"><label class="q">Advance taken (₹)</label><input type="number" id="s_adv" min="0"></div>
+        <div class="field"><label class="q">Total claimed (₹)</label><input type="number" id="s_claim" min="0"></div>
+        <div class="field"><label class="q">Bills still pending?</label><input type="text" id="s_pend" placeholder="e.g. 2 travel bills"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Suggestions -->
+  <section class="card">
+    <div class="cardhead"><span class="n">·</span><h2>What else can we do?</h2></div>
+    <div class="body">
+      <div class="field"><label class="q">Your suggestions to make the fellowship work better</label>
+        <textarea id="s_sugg" style="min-height:90px"></textarea></div>
+    </div>
+  </section>
+</div>
+
+<div class="actionbar">
+  <span class="sv" id="autosv">●&nbsp; not saved</span>
+  <button class="btn ghost" id="resetBtn">Clear</button>
+  <button class="btn ghost" id="csvBtn">Download CSV</button>
+  <button class="btn primary" id="finishBtn">Finish → get my code</button>
+</div>
+
+<dialog id="dlg">
+  <div class="dlghead">Your response is ready</div>
+  <div class="dlgbody">
+    <div class="note">1) Tap <b>Copy code</b> and send it to the review team on WhatsApp. They'll paste it into the assessor dashboard. <br>2) Or tap <b>Copy row</b> to paste a row straight into the master Google Sheet.</div>
+    <textarea class="codebox" id="code" readonly></textarea>
+    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+      <button class="btn primary" id="copyCode">Copy code</button>
+      <button class="btn" id="copyRow" style="background:var(--green);color:#fff">Copy row (for Sheet)</button>
+      <button class="btn" id="closeDlg" style="background:#eee;color:var(--ink)">Close</button>
+    </div>
+  </div>
+</dialog>
+<div class="toast" id="toast"></div>
+
+<script>
+const FELLOWS={
+ "Mithilesh Kumar":{role:"District Legal Fellow",dist:"Bhagalpur"},
+ "Md. Nawaz Hassan":{role:"District Legal Fellow",dist:"Araria"},
+ "Nagmani":{role:"District Legal Fellow",dist:"Purnia"},
+ "Tausif":{role:"District Legal Fellow",dist:"Katihar"},
+ "Pintu Kumar Mehta":{role:"District Legal Fellow",dist:"Kishanganj"},
+ "Sachina":{role:"Legal Fellow cum Patna Lawyer",dist:"Patna"},
+ "Nitish Kumar":{role:"Social Worker",dist:"Purnia"},
+ "Sr. Anupriya":{role:"DLF Coordinator (Patna)",dist:"Patna / All districts"},
+ "Other":{role:"",dist:""}
+};
+const INDICATORS=[
+ {key:"lac",label:"Legal Aid Camps"},
+ {key:"train",label:"Paralegal / Legal Trainings"},
+ {key:"ff",label:"Fact Finding"},
+ {key:"media",label:"Media Screenings → fact‑finding / LAC / case"},
+ {key:"pil",label:"PIL Leads Identified"},
+ {key:"cases",label:"Cases Filed / Handled"}
+];
+const DIMS=[
+ {key:"exp",label:"Experience",p:"What did the year feel like? Most rewarding part? Where did you grow as a lawyer?"},
+ {key:"chal",label:"Challenges & how you overcame them",p:"Biggest obstacles to your targets — and what you did about them."},
+ {key:"learn",label:"Learnings",p:"Top 2–3 skills or insights you gained, and how they changed how you work."},
+ {key:"impact",label:"Impact of your work",p:"One case or activity that mattered most — to a client or the community. Why did it land?"},
+ {key:"team",label:"Teamwork & collaboration with Janman",p:"How did you work with the Patna team, co‑fellows, Sr. Anupriya and leadership?"}
+];
+const STAKEHOLDERS=["Police","One Stop Centre (OSC)","Women & Child Dev. (WCD)","CNLU / Law school","Juvenile Justice Board (JJB)","Child Welfare Committee (CWC)","Social Welfare Dept.","DALSA / DLSA","Public Prosecutors","Paralegal Volunteers (PLVs)","Local elected reps","Other Govt. departments","Other Civil Society Orgs."];
+
+const COLS=["Timestamp","Fellow","Role","District","Stage","Self: LAC /10","Self: Trainings /10","Self: Fact-finding /10","Self: Media screenings /10","Self: PIL /10","Self: Cases /10","Self: Experience","Self: Challenges & overcome","Self: Learnings","Self: Impact","Self: Teamwork","Self: Reporting bottleneck","Self: Case strategy","Self: Media screenings — outcomes","Self: Networking — organisations","Self: Networking — officials/govt","Self: WhatsApp use","Self: Times strategised","Self: Stakeholders engaged","Self: Community work","Self: Assets currently held","Self: Confidentiality affirmed","Self: Concern to raise","Self: Suggestions","Self: Advance","Self: Claimed","Self: Pending docs","Assr: LM total /60","Assr: Director quant /60","Assr: Director qual /60","Assr: Composite /120","Assr: Experience note","Assr: Challenges note","Assr: Learnings note","Assr: Impact note","Assr: Teamwork note","Assr: Conduct & safeguarding note","Assr: Reporting note","Assr: Case-strategy note","Assr: Media screenings note","Assr: Networking note","Assr: WhatsApp (Y/N)","Assr: Times strategised","Assr: Community note","Assr: Stakeholders engaged","Exp: Verified (Y/N)","Exp: Approved","Exp: Cleared to pay","Exp: Verified by","Renewal recommendation","HR next step","Director forward notes","MIS flag"];
+
+let S={wa:""};
+// storage helper: Cowork SDK with localStorage fallback
+const stor={
+  get:async k=>{if(window.storage){const r=await window.storage.get(k);return r?.value??null;}try{return localStorage.getItem(k)}catch(e){return null}},
+  set:(k,v)=>{if(window.storage)window.storage.set(k,v).catch(()=>{});else try{localStorage.setItem(k,v)}catch(e){}},
+  del:async k=>{if(window.storage)await window.storage.delete(k).catch(()=>{});else try{localStorage.removeItem(k)}catch(e){}}
+};
+const $=id=>document.getElementById(id);
+const clean=v=>(v==null?"":String(v)).replace(/[\t\n\r]+/g," ").trim();
+
+const who=$("who"); who.innerHTML='<option value="">— select —</option>'+Object.keys(FELLOWS).map(n=>`<option>${n}</option>`).join("");
+who.onchange=()=>{const f=FELLOWS[who.value]||{};$("role").value=f.role||"";$("dist").value=f.dist||"";loadDraft();save()};
+
+$("scorecard").innerHTML=INDICATORS.map(i=>`
+ <div class="slabrow">
+   <div class="slabtop"><span class="name">${i.label}</span>
+     <span style="margin-left:auto" class="cntlab">your count <input type="number" min="0" class="cnt" id="cnt_${i.key}" style="width:80px;margin-left:6px"></span></div>
+   <div class="scorewrap"><input type="range" min="0" max="10" value="0" id="sc_${i.key}"><span class="scoreval" id="scv_${i.key}">0</span></div>
+ </div>`).join("");
+INDICATORS.forEach(i=>{const r=$("sc_"+i.key);const sync=()=>{$("scv_"+i.key).textContent=r.value;r.style.setProperty('--p',(r.value*10)+'%');save()};r.oninput=sync;sync();$("cnt_"+i.key).oninput=save;});
+
+$("qual").innerHTML=DIMS.map(d=>`<div class="field"><label class="q">${d.label}</label><div class="prompt">${d.p}</div><textarea id="d_${d.key}"></textarea></div>`).join("");
+DIMS.forEach(d=>$("d_"+d.key).oninput=save);
+
+$("stakeholders").innerHTML=STAKEHOLDERS.map((s,i)=>`<span class="chip" data-i="${i}" aria-pressed="false">${s}</span>`).join("");
+document.querySelectorAll("#stakeholders .chip").forEach(c=>c.onclick=()=>{const on=c.getAttribute("aria-pressed")==="true";c.setAttribute("aria-pressed",!on);save()});
+
+document.querySelectorAll("#seg_wa button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#seg_wa button").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");S.wa=b.dataset.v;save()});
+
+["role","dist","period","s_report","s_strategy","s_media","s_neto","s_netg","s_wa_note","s_times","s_comm","s_assets","s_concern","s_adv","s_claim","s_pend","s_sugg"].forEach(id=>{const el=$(id);if(el)el.oninput=save;});
+$("s_conf").onchange=save;
+
+function collect(){
+ const o={who:who.value,role:$("role").value,dist:$("dist").value,period:$("period").value,
+  scores:{},counts:{},dims:{},stake:[],wa:S.wa||"",
+  report:$("s_report").value,strategy:$("s_strategy").value,media:$("s_media").value,neto:$("s_neto").value,netg:$("s_netg").value,
+  wa_note:$("s_wa_note").value,times:$("s_times").value,comm:$("s_comm").value,
+  assets:$("s_assets").value,conf:$("s_conf").checked?"Yes":"",concern:$("s_concern").value,
+  adv:$("s_adv").value,claim:$("s_claim").value,pend:$("s_pend").value,sugg:$("s_sugg").value};
+ INDICATORS.forEach(i=>{o.scores[i.key]=$("sc_"+i.key).value;o.counts[i.key]=$("cnt_"+i.key).value});
+ DIMS.forEach(d=>o.dims[d.key]=$("d_"+d.key).value);
+ STAKEHOLDERS.forEach((s,i)=>{if(document.querySelector('#stakeholders .chip[data-i="'+i+'"]').getAttribute("aria-pressed")==="true")o.stake.push(s)});
+ return o;
+}
+function progress(){
+ const o=collect();let filled=0,total=0;
+ total++; if(o.who)filled++;
+ DIMS.forEach(d=>{total++;if(clean(o.dims[d.key]).length>3)filled++});
+ [o.report,o.strategy,o.comm,o.neto,o.netg].forEach(v=>{total++;if(clean(v).length>3)filled++});
+ total++; if(o.wa)filled++;
+ total++; if(o.stake.length)filled++;
+ const sc=INDICATORS.some(i=>+o.scores[i.key]>0); total++; if(sc)filled++;
+ total++; if(o.conf)filled++;
+ return Math.round(100*filled/total);
+}
+
+function keyFor(){return "selfdraft2:"+(who.value||"unknown")}
+let t;
+function save(){
+ const o=collect();
+ const p=progress(); $("prog").style.width=p+"%"; $("proglab").textContent=p+"% complete";
+ clearTimeout(t); t=setTimeout(()=>{
+   try{ stor.set(keyFor(), JSON.stringify(o)); $("savestate").textContent="Saved ✓"; $("autosv").textContent="● saved"; }
+   catch(e){ $("savestate").textContent="(saved on device)"; }
+ },400);
+}
+async function loadDraft(){
+ try{
+   const raw=await stor.get(keyFor());
+   if(!raw) return; const o=JSON.parse(raw);
+   $("role").value=o.role||"";$("dist").value=o.dist||"";$("period").value=o.period||"Feb 2025 – Jun 2026";
+   INDICATORS.forEach(i=>{const r2=$("sc_"+i.key);r2.value=o.scores?.[i.key]||0;r2.dispatchEvent(new Event('input'));$("cnt_"+i.key).value=o.counts?.[i.key]||""});
+   DIMS.forEach(d=>$("d_"+d.key).value=o.dims?.[d.key]||"");
+   $("s_report").value=o.report||"";$("s_strategy").value=o.strategy||"";$("s_media").value=o.media||"";$("s_neto").value=o.neto||"";$("s_netg").value=o.netg||"";
+   $("s_wa_note").value=o.wa_note||"";$("s_times").value=o.times||"";$("s_comm").value=o.comm||"";
+   $("s_assets").value=o.assets||"";$("s_conf").checked=!!o.conf;$("s_concern").value=o.concern||"";
+   $("s_adv").value=o.adv||"";$("s_claim").value=o.claim||"";$("s_pend").value=o.pend||"";$("s_sugg").value=o.sugg||"";
+   S.wa=o.wa||""; if(o.wa){document.querySelectorAll("#seg_wa button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===o.wa))}
+   (o.stake||[]).forEach(s=>{const i=STAKEHOLDERS.indexOf(s);if(i>=0){document.querySelector('#stakeholders .chip[data-i="'+i+'"]').setAttribute("aria-pressed","true")}});
+   $("prog").style.width=progress()+"%";
+ }catch(e){}
+}
+
+function rowArray(o){
+ const cell={ "Timestamp":new Date().toLocaleString(),"Fellow":o.who,"Role":o.role,"District":o.dist,"Stage":"Self",
+  "Self: LAC /10":o.scores.lac,"Self: Trainings /10":o.scores.train,"Self: Fact-finding /10":o.scores.ff,"Self: Media screenings /10":o.scores.media,"Self: PIL /10":o.scores.pil,"Self: Cases /10":o.scores.cases,
+  "Self: Experience":o.dims.exp,"Self: Challenges & overcome":o.dims.chal,"Self: Learnings":o.dims.learn,"Self: Impact":o.dims.impact,"Self: Teamwork":o.dims.team,
+  "Self: Reporting bottleneck":o.report,"Self: Case strategy":o.strategy,"Self: Media screenings — outcomes":o.media,"Self: Networking — organisations":o.neto,"Self: Networking — officials/govt":o.netg,
+  "Self: WhatsApp use":(o.wa+(o.wa_note?" — "+o.wa_note:"")),"Self: Times strategised":o.times,"Self: Stakeholders engaged":o.stake.join("; "),"Self: Community work":o.comm,
+  "Self: Assets currently held":o.assets,"Self: Confidentiality affirmed":o.conf,"Self: Concern to raise":o.concern,"Self: Suggestions":o.sugg,
+  "Self: Advance":o.adv,"Self: Claimed":o.claim,"Self: Pending docs":o.pend };
+ return COLS.map(c=>clean(cell[c]!==undefined?cell[c]:""));
+}
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1700)}
+async function copy(txt){try{await navigator.clipboard.writeText(txt);return true}catch(e){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(_){}ta.remove();return true}}
+
+$("finishBtn").onclick=()=>{
+ if(!who.value){toast("Please select your name first");return}
+ const o=collect();
+ const code="DLF1::"+btoa(encodeURIComponent(JSON.stringify(o)));
+ $("code").value=code; $("dlg").showModal(); $("dlg").dataset.row=JSON.stringify(rowArray(o));
+};
+$("copyCode").onclick=async()=>{await copy($("code").value);toast("Code copied — send on WhatsApp")};
+$("copyRow").onclick=async()=>{const row=JSON.parse($("dlg").dataset.row);await copy(row.join("\t"));toast("Row copied — paste into the Sheet")};
+$("closeDlg").onclick=()=>$("dlg").close();
+$("csvBtn").onclick=()=>{
+ if(!who.value){toast("Select your name first");return}
+ const row=rowArray(collect());
+ function q(s){s=String(s);return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+ const csv=[COLS.map(q).join(","),row.map(q).join(",")].join("\n");
+ const blob=new Blob([csv],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=("Self_"+(who.value||"fellow")).replace(/\W+/g,"_")+".csv";a.click();
+};
+$("resetBtn").onclick=async()=>{ if(!confirm("Clear this draft?"))return; try{await stor.del(keyFor())}catch(e){} location.reload(); };
+
+save();
+</script>
+</body>
+</html>
