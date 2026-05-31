@@ -98,6 +98,8 @@ dialog::backdrop{background:rgba(20,28,28,.55)}
   padding:11px 18px;border-radius:99px;font-weight:600;font-size:14px;opacity:0;transition:all .3s;pointer-events:none;z-index:50}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .req{color:var(--saff);font-weight:700}
+.flow{margin-top:14px;font-size:13.5px;color:var(--green2);background:rgba(58,90,64,.08);border-radius:9px;padding:10px 13px;border:1px solid rgba(58,90,64,.22);line-height:1.5}
+.flow strong{color:var(--green)}
 </style>
 </head>
 <body>
@@ -107,6 +109,7 @@ dialog::backdrop{background:rgba(20,28,28,.55)}
     <h1>Fellow Self‑Assessment</h1>
     <div class="sub">Your honest reflection on the year — and the basis for the MoU‑extension conversation. There are no wrong answers. Save as you go; when you finish, generate your code and send it back to the review team.</div>
     <div class="org">Janman People's Foundation · Jan Nyaya Abhiyan</div>
+    <div class="flow"><strong>How it works:</strong> Fill this form &rarr; click <strong>Finish &rarr; get my code</strong> at the bottom &rarr; copy the code &rarr; send it to the review team on WhatsApp. The team pastes your code into the assessor dashboard to load all your responses. There is no automatic sync — the code is the link.</div>
     <div class="bar"><i id="prog"></i></div>
     <div class="barlabel"><span id="proglab">0% complete</span><span id="savestate">Not saved yet</span></div>
   </header>
@@ -134,7 +137,7 @@ dialog::backdrop{background:rgba(20,28,28,.55)}
 
   <!-- B: qualitative -->
   <section class="card">
-    <div class="cardhead"><span class="n">B</span><h2>In your own words</h2></div>
+    <div class="cardhead"><span class="n">B</span><h2>Your reflection</h2><span class="hint">5 open questions — answer in as much detail as you can</span></div>
     <div class="body" id="qual"></div>
   </section>
 
@@ -292,10 +295,11 @@ $("scorecard").innerHTML=INDICATORS.map(i=>`
      <span style="margin-left:auto" class="cntlab">your count <input type="number" min="0" class="cnt" id="cnt_${i.key}" style="width:80px;margin-left:6px"></span></div>
    <div class="scorewrap"><input type="range" min="0" max="10" value="0" id="sc_${i.key}"><span class="scoreval" id="scv_${i.key}">0</span></div>
  </div>`).join("");
-INDICATORS.forEach(i=>{const r=$("sc_"+i.key);const sync=()=>{const val=r.value,pct=val*10;$("scv_"+i.key).textContent=val;let st=document.getElementById('_st_'+i.key);if(!st){st=document.createElement('style');st.id='_st_'+i.key;document.head.appendChild(st);}st.textContent=`#sc_${i.key}::-webkit-slider-runnable-track{background:linear-gradient(90deg,#3a5a40 ${pct}%,#e4dccb ${pct}%)}`;save();};r.oninput=sync;r.onchange=sync;sync();$("cnt_"+i.key).oninput=save;});
-
+// Render Section B FIRST — collect() reads these elements, so they must exist before INDICATORS.forEach calls sync()→save()→collect()
 $("qual").innerHTML=DIMS.map(d=>`<div class="field"><label class="q">${d.label}</label><div class="prompt">${d.p}</div><textarea id="d_${d.key}" placeholder="Write your response here…" rows="5" style="min-height:120px;background:#ffffff;border:1.6px solid #c4b89a"></textarea></div>`).join("");
 DIMS.forEach(d=>$("d_"+d.key).oninput=save);
+
+INDICATORS.forEach(i=>{const r=$("sc_"+i.key);const sync=()=>{const val=r.value,pct=val*10;$("scv_"+i.key).textContent=val;let st=document.getElementById('_st_'+i.key);if(!st){st=document.createElement('style');st.id='_st_'+i.key;document.head.appendChild(st);}st.textContent=`#sc_${i.key}::-webkit-slider-runnable-track{background:linear-gradient(90deg,#3a5a40 ${pct}%,#e4dccb ${pct}%)}`;save();};r.oninput=sync;r.onchange=sync;sync();$("cnt_"+i.key).oninput=save;});
 
 $("stakeholders").innerHTML=STAKEHOLDERS.map((s,i)=>`<span class="chip" data-i="${i}" aria-pressed="false">${s}</span>`).join("");
 document.querySelectorAll("#stakeholders .chip").forEach(c=>c.onclick=()=>{const on=c.getAttribute("aria-pressed")==="true";c.setAttribute("aria-pressed",!on);save()});
@@ -313,7 +317,7 @@ function collect(){
   assets:$("s_assets").value,conf:$("s_conf").checked?"Yes":"",concern:$("s_concern").value,
   adv:$("s_adv").value,claim:$("s_claim").value,pend:$("s_pend").value,sugg:$("s_sugg").value};
  INDICATORS.forEach(i=>{o.scores[i.key]=$("sc_"+i.key).value;o.counts[i.key]=$("cnt_"+i.key).value});
- DIMS.forEach(d=>o.dims[d.key]=$("d_"+d.key).value);
+ DIMS.forEach(d=>{const el=$("d_"+d.key);o.dims[d.key]=el?el.value:""});
  STAKEHOLDERS.forEach((s,i)=>{if(document.querySelector('#stakeholders .chip[data-i="'+i+'"]').getAttribute("aria-pressed")==="true")o.stake.push(s)});
  return o;
 }
