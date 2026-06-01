@@ -413,8 +413,7 @@ $("closeDlg").onclick=()=>$("dlg").close();
 $("csvBtn").onclick=()=>{
  if(!who.value){toast("Select your name first");return}
  const row=rowArray(collect());
- function q(s){s=String(s);return /[",
-]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+ function q(s){s=String(s);return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
  const csv=[COLS.map(q).join(","),row.map(q).join(",")].join("
 ");
  const blob=new Blob([csv],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=("Self_"+(who.value||"fellow")).replace(/W+/g,"_")+".csv";a.click();
