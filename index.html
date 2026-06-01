@@ -296,9 +296,7 @@ const stor={
   del:async k=>{if(window.storage)await window.storage.delete(k).catch(()=>{});else try{localStorage.removeItem(k)}catch(e){}}
 };
 const $=id=>document.getElementById(id);
-const clean=v=>(v==null?"":String(v)).replace(/[	
-
-]+/g," ").trim();
+const clean=v=>(v==null?"":String(v)).replace(/[\t\n\r]+/g," ").trim();
 
 const who=$("who"); who.innerHTML='<option value="">— select —</option>'+Object.keys(FELLOWS).map(n=>`<option>${n}</option>`).join("");
 who.onchange=()=>{const f=FELLOWS[who.value]||{};$("role").value=f.role||"";$("dist").value=f.dist||"";loadDraft();save()};
