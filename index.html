@@ -288,7 +288,7 @@ const COLS=["Timestamp","Fellow","Role","District","Stage","Self: LAC /10","Self
 const BACKEND='https://script.google.com/macros/s/AKfycbzguxG9t486qtOX1FluOBouvnqLxn1Ej85OQlG31y9lg14SMZUZHcqBjYISHbRbBvfJ/exec'; // <- paste your Google Apps Script URL here after setup
 
 let S={wa:""};
-let t; // debounce timer — declared here so save() can access it during forEach init (let TDZ fix)
+let t; // debounce timer  — declared here so save() can access it during forEach init (let TDZ fix)
 // storage helper: Cowork SDK with localStorage fallback
 const stor={
   get:async k=>{if(window.storage){const r=await window.storage.get(k);return r?.value??null;}try{return localStorage.getItem(k)}catch(e){return null}},
